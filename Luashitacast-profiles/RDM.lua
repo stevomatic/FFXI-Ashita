@@ -72,6 +72,24 @@ local sets = {
         Legs = 'Nyame Flanchard',       --        dt  8       -- 
         Feet = 'Nyame Sollerets',       --        dt  7       -- 
     },
+    PreImpact = {
+        Main = 'Sakpata\'s Sword',
+        Sub = 'Ammurapi Shield', 
+		Range = 'Displaced',
+        Ammo = 'Impatiens',
+        Head = 'Displaced',
+        Neck = 'Voltsurge Torque',
+        Ear1 = 'Loquac. Earring',
+        Ear2 = 'Malignance Earring',
+        Body = 'Crepuscular Cloak',
+        Hands = 'Merlininc Dastanas',
+        Ring1 = 'Kishar Ring',
+        Ring2 = 'Lebeche Ring',
+        Back = 'Perimede Cape',
+        Waist = 'Shinjutsu-No-Obi +1',
+        Legs = 'Kaykaus Tights +1', 
+        Feet = 'Merlinic Crackows', 
+    },
     Haste = {
         Main = 'Sakpata\'s Sword',
         Sub = 'Ammurapi Shield', 
@@ -180,7 +198,7 @@ local sets = {
         Legs = 'Atro. Tights +4',
         Feet = 'Viti. Boots +4',
     }, 
- Impact = {
+    Impact = {
         Main = 'Murgleis',
         Sub = 'Ammurapi Shield',
 		Range = 'Ullr',
@@ -578,11 +596,10 @@ end
 profile.HandlePrecast = function()
     local action = gData.GetAction();
     if (action.Name == 'Impact') then
-        -- Impact's cast time is too short for the midcast gear swap to
-        -- reliably finish before the spell resolves, so the cloak (and
-        -- the empty head slot it requires) gets equipped here instead,
-        -- right when the cast starts, giving the full cast bar to settle.
-        gFunc.EquipSet(sets.Impact);
+        -- Crepuscular Cloak must be worn at cast time for Impact to take
+        -- effect, so it's equipped here on precast. Midcast still swaps
+        -- into sets.Impact normally for the rest of the gear.
+        gFunc.EquipSet(sets.PreImpact);
     else
         gFunc.EquipSet(sets.Precast);
     end
